@@ -1,7 +1,14 @@
-<VirtualHost *:80>
-    DocumentRoot /var/www/site1
-    <Directory /var/www/site1>
-        AllowOverride All
-        Require all granted
-    </Directory>
-</VirtualHost>
+pipeline {
+    agent any
+
+    stages {
+        stage('Deploy') {
+            steps {
+                sh '''
+                sudo rm -rf /var/www/site1/*
+                sudo cp -r Carwebsite-Static-FE/* /var/www/site1/
+                '''
+            }
+        }
+    }
+}
